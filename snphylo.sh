@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#set -x
+
 VERSION="20180901"
 
 # Declare functions

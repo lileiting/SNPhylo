@@ -42,14 +42,15 @@ library(phangorn)
 bs_image_file.name <- paste(file.prefix, ".bs.png", sep = "")
 bs_tree_file.name  <- paste(file.prefix, ".bs.tree", sep = "")
 
-phylip <- read.phyDat(phylip.file, format="phylip", type="DNA")
+phylip <- read.phyDat(phylip.file, format="interleaved", type="DNA")
 newick <- read.tree(newick.file)
 
 fit <- pml(newick, phylip)
 #fit <- optim.pml(fit, TRUE)
 
 set.seed(1)
-bs <- bootstrap.pml(fit, bs = num.bs_sample, optNni=TRUE, multicore=TRUE)
+bs <- bootstrap.pml(fit, bs = num.bs_sample, optNni=TRUE, multicore=FALSE)
+saveRDS(bs, file = "tmp.bs.rds")
 #for (i in 1:num.bs_sample) {write.tree(bs[[i]], sprintf("%s.bs_sample.%i.tree", file.prefix, i))}
 png(filename = bs_image_file.name, width = 1000, height = 1000)
 options(warn=-1)
